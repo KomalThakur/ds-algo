@@ -1,0 +1,26 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+
+public class Main
+{
+    
+    public static int count(int arr[], int n, int sum) {
+        if(sum == 0)
+            return 1;
+        if(sum < 0) 
+            return 0;
+        if(sum > 0 & n<= 0)
+            return 0;
+        return count(arr, n-1, sum) +count(arr, n, sum-arr[n-1]);
+    }
+	public static void main(String[] args) {
+		int arr[] = {1, 2, 3}; 
+        int m = arr.length; 
+        System.out.println( count(arr, m, 4)); 
+ 	}
+}
