@@ -1,0 +1,80 @@
+import java.util.*;
+public class Main
+{
+    
+    public static void kTop(int arr[], int n, int k) {
+        HashMap<Integer, Integer> freq = new HashMap<Integer, Integer>();
+        LinkedList<Integer> topK = new LinkedList<Integer>();
+        for(int i = 0; i<n; i++) {
+            int count = 1;
+            if(freq.get(arr[i]) != null) {
+                count += freq.get(arr[i]);
+            }
+            freq.put(arr[i], count);
+          
+            if(topK.size() == 0) {
+                topK.add(arr[i]);
+            } else {
+                int flag =0;
+                topK.remove((Integer)arr[i]);
+                Iterator itr = topK.listIterator();
+                while(itr.hasNext()) {
+                    int curr = (int) itr.next();
+                    if(freq.get(curr) < count) {
+                        int index = topK.indexOf((Integer)curr);
+                        topK.add(index, arr[i]);
+                        flag =1;
+                        break;
+                    } else if(freq.get(curr) == count && curr > arr[i])  {
+                        int index = topK.indexOf((Integer)curr);
+                        topK.add(index, arr[i]);
+                        
+                        flag =1;
+                        break;
+                    }
+                }
+              
+                if(flag == 0){
+                  topK.addLast(arr[i]);
+                }
+            }
+            
+            printList(topK);
+
+        }
+    }
+    public static int getIndex(int data, LinkedList<Integer> list) {
+        for(int i = 0; i < list.size(); i++) {
+            if((int) list.get(i) == data )
+                return i;
+        }
+        
+        return -1;
+    }
+    public static void printList(LinkedList<Integer> list) {
+        for(int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i));
+        }
+        
+        System.out.println("\n");
+    }
+    
+    public static void printMat(int mat[][], int r, int c) {
+        for(int i=0; i < r; i++) {
+            for(int j = 0; j< c; j++) {
+                System.out.print(mat[i][j] + "\t");
+            }
+            
+            System.out.println();
+        }
+        
+        System.out.println();
+    }
+    
+	public static void main(String[] args) {
+		int k = 4;
+		int arr[] = {5,2,1,3,2};
+		int n = arr.length;
+		kTop(arr, n, k);
+ 	}
+}
