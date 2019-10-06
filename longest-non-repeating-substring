@@ -1,0 +1,32 @@
+import java.util.*;
+public class Main {
+    public static void getNonRepeatingSubstring(String str) {
+        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        int l = 0;
+        
+        int finalL = 0;
+        int finalR = 0;
+        int len = 0;
+        int maxLen = -1;
+        for(int i = 0; i < str.length(); i++) {
+            if(map.containsKey(str.charAt(i))) {
+               if(len > maxLen) {
+                   maxLen = len;
+                   finalR=i;
+                   finalL = l;
+               } 
+               l=i;
+               len=0;
+               map = new HashMap<Character, Integer>();
+            }
+            len++;
+            map.put(str.charAt(i), i);
+        }
+        
+        System.out.println("Substring " + str.substring(finalL, finalR));
+    }
+	public static void main(String[] args) {
+	  String str = "geeksforgeeks";
+	  getNonRepeatingSubstring(str);
+ 	}
+}
