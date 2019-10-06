@@ -1,6 +1,6 @@
 import java.util.*;
 public class Main {
-    public static void longestCommonSubsequence(String str, int n) {
+    public static void longestPalindromicSubsequence(String str, int n) {
         int dp[][] = new int[n][n];
         for(int i = 0; i < n; i++) {
            dp[i][i] = 1;
@@ -17,7 +17,7 @@ public class Main {
           
         }
         
-        System.out.println("Longest common subsequence length: " + dp[0][n-1]);
+        System.out.println("Longest palindromic subsequence length: " + dp[0][n-1]);
     }
     
     public static int max(int i, int j) {
@@ -36,6 +36,6 @@ public class Main {
     }
 	public static void main(String[] args) {
 	  String str = "agbdba";
-	  longestCommonSubsequence(str, str.length());
+	  longestPalindromicSubsequence(str, str.length());
  	}
 }
