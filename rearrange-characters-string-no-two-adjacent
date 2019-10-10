@@ -1,0 +1,63 @@
+import java.util.*;
+class KeyComparator implements Comparator<Key>{
+    @Override
+    public int compare(Key k1, Key k2) {
+       return k2.freq - k1.freq;
+    } 
+}
+class Key { 
+    char c;
+    int freq;
+    
+    Key(char c , int freq) {
+        this.c = c;
+        this.freq = freq;
+    }
+}
+public class Main
+{
+    
+    static void rearrangeString(String str) {
+       int arr[] = new int[26];
+       PriorityQueue<Key> pq = new PriorityQueue<Key>(new KeyComparator());
+       for(int i = 0; i < str.length(); i++) {
+           arr[str.charAt(i) - 'a']++;
+       }
+       
+       for(int i = 0; i < 26; i++) {
+           if(arr[i] > 0) {
+               pq.add(new Key((char)(i+'a'), arr[i]));
+           }
+       }
+       
+       String res = "";
+       
+       while(pq.size() != 0) {
+           Key curr = pq.poll();
+           
+           res += curr.c;
+           curr.freq--;
+           
+           if(pq.size() != 0) {
+                Key next = pq.poll();
+                res += next.c;
+                next.freq--;
+                
+                if(next.freq != 0) {
+                    pq.add(next);
+                }
+           }
+           
+           if(curr.freq != 0) {
+                pq.add(curr);
+            }
+       }
+       
+       System.out.println(res);
+   
+    }
+	public static void main(String[] args) {
+		String str = "aaabc" ; 
+        rearrangeString(str);
+	}
+}
