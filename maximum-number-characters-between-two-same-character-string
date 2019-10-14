@@ -1,0 +1,25 @@
+import java.util.*;
+public class Main {
+	public static void main(String args[]) {
+		String str = "abc"; 
+		System.out.println(getMaxChars(str));
+	}
+
+	static int getMaxChars(String str) {
+		int len = str.length();
+		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+		int maxLen = -1;
+		for(int i = 0; i < len; i++) {
+			if(map.containsKey(str.charAt(i))) {
+				int currlen = i-map.get(str.charAt(i)) -1;
+				if(currlen > maxLen) {
+					maxLen = currlen;
+}
+			} else {
+				map.put(str.charAt(i), i);
+			}
+		}
+
+		return maxLen;
+	}
+}
