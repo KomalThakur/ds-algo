@@ -1,0 +1,42 @@
+import java.util.*;
+public class Main {
+	public static void main(String args[]) {
+		String str = "3[b2[ca]]"; 
+        System.out.println(decode(str));
+	}
+
+	static String decode(String str) {
+		int len = str.length();
+		Stack<Integer> s1 = new Stack<Integer>();
+		Stack<Character> s2 = new Stack<Character>();
+		
+		int i = 0;
+		String fin = "";
+		while(i < len) {
+			char curr = str.charAt(i);
+			if(Character.isDigit(curr)) {
+				s1.push((int)(curr - '0'));
+			} else if(curr == ']') {
+				String str1 = "";
+				while(s2.peek() != '[') {
+					str1=s2.pop()+str1;
+				}
+                s2.pop();
+				int rep = s1.pop();
+				for(int j = 0; j < rep; j++) {
+					for(int k = 0; k < str1.length(); k++) {
+					    s2.push(str1.charAt(k));
+					}
+				}
+			} else {
+				s2.push(curr);
+			}
+			i++;
+		}
+		while(s2.size() != 0) {
+		    fin= s2.pop()+fin;
+		}
+		
+		return fin;
+	}
+}
