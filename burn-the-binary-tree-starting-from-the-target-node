@@ -1,0 +1,117 @@
+import java.util.*;
+class Node {
+    int data;
+    Node left;
+    Node right;
+    
+    Node(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BinaryTree {
+    Node root = null;
+    
+    BinaryTree(int data) {
+        root = new Node(data);
+    }
+}
+public class Main
+{
+    public static int getSeq(Node root, int target, Queue<Node> q) {
+        if(root == null) {
+            return 0;
+        }
+        if(root.data == target) {
+            System.out.println(target);
+            if(root.left != null) 
+                q.add(root.left);
+            if(root.right != null)
+                q.add(root.right);
+                
+            return 1;
+        }
+        
+        int leftVal = getSeq(root.left, target, q);
+        
+        if(leftVal == 1) {
+            int currsize = q.size();
+            while(currsize != 0) {
+                Node curr = q.poll();
+                System.out.print(curr.data + " ");
+                if(curr.left != null) 
+                    q.add(curr.left);
+                if(curr.right != null)
+                    q.add(curr.right);
+                    
+                currsize--;
+            }
+            System.out.print(root.data + "\n");
+            if(root.right != null)
+                q.add(root.right);
+            
+            return 1;
+        }
+        
+        int rightVal = getSeq(root.right, target, q);
+        
+        if(rightVal == 1) {
+            int currsize = q.size();
+            while(currsize != 0) {
+                Node curr = q.poll();
+                System.out.print(curr.data + " ");
+                if(curr.left != null) 
+                    q.add(curr.left);
+                if(curr.right != null)
+                    q.add(curr.right);
+                    
+                currsize--;
+            }
+            System.out.print(root.data + "\n");
+            
+            if(root.left != null) 
+                q.add(root.left);
+            
+            return 1;
+        }
+        
+        return 0;
+    }
+	public static void main(String[] args) {
+		BinaryTree bt = new BinaryTree(12);
+		bt.root.left = new Node(19);
+		bt.root.right = new Node(82);
+		bt.root.left.left = new Node(41);
+		bt.root.left.left.right = new Node(2);
+		
+		bt.root.right.left = new Node(15);
+		bt.root.right.right = new Node(95);
+		
+		bt.root.right.left.left = new Node(21);
+		bt.root.right.right.left = new Node(7);
+		bt.root.right.right.right = new Node(16);
+		
+	    Queue<Node> q = new LinkedList<Node>();
+	    
+	    getSeq(bt.root, 41, q);
+	    
+	    
+	    while(q.size() != 0) {
+	        int currsize = q.size();
+            while(currsize != 0) {
+                Node curr = q.poll();
+                System.out.print(curr.data + " ");
+                if(curr.left != null) 
+                    q.add(curr.left);
+                if(curr.right != null)
+                    q.add(curr.right);
+                    
+                currsize--;
+            }
+            
+            System.out.println();
+	    }
+	}
+}
